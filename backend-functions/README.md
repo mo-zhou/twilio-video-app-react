@@ -2,7 +2,7 @@
 
 4 functions are provided here: 
 
-### `POST` `/admin/create`
+#### `POST` `/admin/create`
 
 For the admin to create a new meeting. This function should be called from the admin interface. 
 
@@ -21,7 +21,7 @@ For the admin to create a new meeting. This function should be called from the a
     **Content:** `"Error: couldn't create the new meeting"`
 
 
-### `POST` `/admin/join`
+#### `POST` `/admin/join`
 
 For the admin to join the meeting. The first time admin joins the meeting this call also create the video room and notifies users in the wait room so they can join as well.
 
@@ -44,7 +44,7 @@ For the admin to join the meeting. The first time admin joins the meeting this c
     **Content:** `"Error: <string>"`
 
 
-### `POST` `/user/get-room`
+#### `POST` `/user/get-room`
 
 For the user reaching the wait room, to get info about which `sync` to connect to.
 
@@ -67,7 +67,7 @@ For the user reaching the wait room, to get info about which `sync` to connect t
     **Content:** `"Error: <string>"`
 
 
-### `POST` `/user/join`
+#### `POST` `/user/join`
 
 For the user to join the room.
 
