@@ -1,7 +1,16 @@
 exports.handler = async function(context, event, callback) {
     console.log("admin trying to create a meeting");
+    let response = new Twilio.Response();
+    response.appendHeader('Content-Type', 'application/json');
+    response.setHeaders({"Access-Control-Allow-Origin": "*"}); // For testing from localhost
 
-    //if(!SSO.checkAccess(event, context)) callback("unauthorized", null);
+    /*if(!SSO.checkAccess(event, context)) {
+        response.setStatusCode(403);
+        response.setBody("Unauthorized");
+
+        callback(null, response);
+        return;
+    }*/
 
     let n_digits = event.n_digits;
     if(!n_digits) n_digits = parseInt(context.MEETING_ID_DIGITS);
@@ -23,12 +32,19 @@ exports.handler = async function(context, event, callback) {
     console.log("Meeting ID: ", meeting_id);
     let document = Sync.createDocument(meeting_id, context);
     if(!document) {
-        callback("Error: couldn't create the new meeting", null);
+        response.setStatusCode(500);
+        response.setBody("Error: couldn't create the new meeting");
+
+        callback(null, response);
+        return;
     }
 
-    callback(null, {
-        meeting_id: meeting_id
-    });
+
+    response.appendHeader('Content-Type', 'application/json');
+    response.setStatusCode(200);
+    response.setBody({meeting_id: meeting_id});
+
+    callback(null, response);
 };
 
 

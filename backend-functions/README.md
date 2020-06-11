@@ -17,8 +17,8 @@ For the admin to create a new meeting. This function should be called from the a
  
 **Error Response:** A string is returned explaining the problem.
 
-  * **Code:** 500 <br />
-    **Content:** `"Error: couldn't create the new meeting"`
+  * **Code:** 400, 403, 404, 500 <br />
+    **Content:**  (String) `"Error: couldn't create the new meeting"`
 
 
 #### `POST` `/admin/join`
@@ -40,11 +40,11 @@ For the admin to join the meeting. The first time admin joins the meeting this c
  
 **Error Response:** A string is returned explaining the problem.
 
-  * **Code:** 500 <br />
-    **Content:** `"Error: <string>"`
+  * **Code:** 400, 403, 404, 500 <br />
+    **Content:**  (String) `"Error: couldn't create the new meeting"`
 
 
-#### `POST` `/user/get-room`
+#### `POST` `/user/enter-waiting-room
 
 For the user reaching the wait room, to get info about which `sync` to connect to.
 
@@ -63,8 +63,8 @@ For the user reaching the wait room, to get info about which `sync` to connect t
  
 **Error Response:** A string is returned explaining the problem.
 
-  * **Code:** 500 <br />
-    **Content:** `"Error: <string>"`
+  * **Code:** 400, 403, 404, 500 <br />
+    **Content:**  (String) `"Error: couldn't create the new meeting"`
 
 
 #### `POST` `/user/join`
@@ -91,8 +91,8 @@ For the user to join the room.
  
 **Error Response:** A string is returned explaining the problem.
 
-  * **Code:** 500 <br />
-    **Content:** `"Error: <string>"`
+  * **Code:** 400, 403, 404, 500 <br />
+    **Content:**  (String) `"Error: couldn't create the new meeting"`
 
 ## DEPLOYMENT ##
 

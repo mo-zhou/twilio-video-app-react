@@ -1,19 +1,32 @@
 exports.handler = async function(context, event, callback) {
     console.log("customer trying to join");
 
+    let response = new Twilio.Response();
+    response.appendHeader('Content-Type', 'application/json');
+    response.setHeaders({"Access-Control-Allow-Origin": "*"}); // For testing from localhost
+
     const meeting_id = event.meeting_id;
     if(!meeting_id) {
-        callback("Error: Missing meeting_id", null);
+        response.setStatusCode(400);
+        response.setBody("Error: Missing meeting_id");
+
+        callback(null, response);
         return;
     }
     const room_id = event.room_id;
     if(!room_id) {
-        callback("Error: Missing room_id", null);
+        response.setStatusCode(400);
+        response.setBody("Error: Missing room_id");
+
+        callback(null, response);
         return;
     }
     const identity = event.identity;
     if(!identity) {
-        callback("Error: Missing identity", null);
+        response.setStatusCode(400);
+        response.setBody("Error: Missing identity");
+
+        callback(null, response);
         return;
     }
 
@@ -21,7 +34,10 @@ exports.handler = async function(context, event, callback) {
     console.log("checking if meeting " + meeting_id + " exists and corresponds to room_id " + room_id);
     const document = await Sync.getRoomDocument(meeting_id, context);
     if(!document || !document.data || document.data.room_id !== room_id) {
-        callback("Error: couldn't find your meeting room. Please go to admin and create it first.", null);
+        response.setStatusCode(404);
+        response.setBody("Error: couldn't find your meeting room. Please go to admin and create it first.");
+
+        callback(null, response);
         return;
     }
 
@@ -29,14 +45,19 @@ exports.handler = async function(context, event, callback) {
     console.log("checking if identity has authorization");
     const authorization = await Sync.checkClientAuthorization(document.sid, identity, context);
     if(!authorization) {
-        callback("Error: you have not been authorized.", null);
+        response.setStatusCode(403);
+        response.setBody("Error: you have not been authorized.");
+
+        callback(null, response);
         return;
     }
 
     console.log("Creating an authorization token for the video room");
-    const video_params = Video.grantVideoAccess(room_id, identity, context);
+    response.appendHeader('Content-Type', 'application/json');
+    response.setStatusCode(200);
+    response.setBody(Video.grantVideoAccess(room_id, identity, context));
 
-    callback(null, video_params);
+    callback(null, response);
 };
 
 const Sync = {
