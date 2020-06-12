@@ -3,6 +3,7 @@ import { styled } from '@material-ui/core/styles';
 
 import Controls from './components/Controls/Controls';
 import LocalVideoPreview from './components/LocalVideoPreview/LocalVideoPreview';
+import WaitingRoom from './components/WaitingRoom/WaitingRoom';
 import MenuBar from './components/MenuBar/MenuBar';
 import ReconnectingNotification from './components/ReconnectingNotification/ReconnectingNotification';
 import Room from './components/Room/Room';
@@ -33,7 +34,7 @@ export default function App() {
     <Container style={{ height }}>
       <MenuBar />
       <Main>
-        {roomState === 'disconnected' ? <LocalVideoPreview /> : <Room />}
+        {roomState === 'disconnected' ? <WaitingRoom /> : <Room />}
         <Controls />
       </Main>
       <ReconnectingNotification />
