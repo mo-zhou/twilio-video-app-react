@@ -71,6 +71,7 @@ export default function MenuBar() {
 
   useEffect(() => {
     if (URLRoomName) {
+      console.log('room name from URL!', URLRoomName);
       setRoomName(URLRoomName);
     }
   }, [URLRoomName]);
@@ -111,14 +112,6 @@ export default function MenuBar() {
                 {user.displayName}
               </Typography>
             )}
-            <TextField
-              id="menu-room"
-              label="Room"
-              className={classes.textField}
-              value={roomName}
-              onChange={handleRoomNameChange}
-              margin="dense"
-            />
             <Button
               className={classes.joinButton}
               type="submit"

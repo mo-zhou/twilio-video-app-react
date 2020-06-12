@@ -155,7 +155,7 @@ describe('the MenuBar component', () => {
     mockedUseVideoContext.mockImplementation(() => ({ isConnecting: false, room: {}, localTracks: [] } as any));
     const { getByLabelText } = render(
       <MemoryRouter initialEntries={['/room/test']}>
-        <Route path="/room/:URLRoomName">
+        <Route path="/meeting/:URLMeetingId">
           <MenuBar />
         </Route>
       </MemoryRouter>
